@@ -1,6 +1,10 @@
+from spotify_connection import SpotifyConnection
 import os
 import psycopg2
 import time
+
+
+spotify = SpotifyConnection()
 
 def connect_to_db():
     DATABASE_URL = os.getenv('DATABASE_URL')
@@ -11,14 +15,14 @@ def connect_to_db():
             return conn
         except psycopg2.OperationalError:
             print("Database not ready, retrying in 5 seconds...")
-            sleep(5)
+            time.sleep(5)
 
 if __name__ == '__main__':
     conn = connect_to_db()
     cursor = conn.cursor()
 
     while True:
-        print("TEST")
+        print(spotify.get_artist_data('4Z8W4fKeB5YxbusRsdQVPb'))
         time.sleep(5)
 
         cursor.execute("SELECT 1")

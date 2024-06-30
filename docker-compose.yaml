@@ -17,9 +17,13 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgres://myuser:mypassword@db:5432/mydatabase
+      DATABASE_URL: ${DATABASE_URL}
+      SPOTIFY_CLIENT: ${SPOTIFY_CLIENT}
+      SPOTIFY_SECRET: ${SPOTIFY_SECRET}
     ports:
       - "5000:5000"
+    env_file:
+      - .env
 
 volumes:
   db_data:
